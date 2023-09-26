@@ -36,7 +36,8 @@ const logEntrySchema = new Schema({
         type: Date
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    
 });
 
 const LogEntry = mongoose.model('LogEntry', logEntrySchema);
