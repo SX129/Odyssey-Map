@@ -7,6 +7,7 @@ const requiredNumber = {
     required: true
 };
 
+//Log entry schema with validations
 const logEntrySchema = new Schema({
     title: {
         type: String,
@@ -37,7 +38,7 @@ const logEntrySchema = new Schema({
     }
 }, {
     timestamps: true,
-    
+
 });
 
 const LogEntry = mongoose.model('LogEntry', logEntrySchema);
