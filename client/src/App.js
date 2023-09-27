@@ -6,12 +6,12 @@ function App() {
     <Map
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       initialViewState={{
-        longitude: -122.4,
-        latitude: 37.8,
-        zoom: 14
+        longitude: -95.6,
+        latitude: 37.6,
+        zoom: 3.5
       }}
       style={{width: '100vw', height: '100vh'}}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
+      mapStyle="mapbox://styles/syphe/cln10u41p066s01p78zrs75ik"
     />
   );
 }
