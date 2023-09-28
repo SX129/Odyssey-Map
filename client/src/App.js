@@ -89,7 +89,6 @@ const App = () => {
           </Popup>
         )}
       </Map>
-
       <ControlPanel />
     </>
   );
