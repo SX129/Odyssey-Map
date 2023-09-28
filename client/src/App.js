@@ -1,17 +1,27 @@
-import { useState, useEffect } from 'react';
-import Map, {Marker} from 'react-map-gl';
-import { listLogEntries } from './API';
+import * as React from 'react';
+import {useState,useEffect, useMemo} from 'react';
+import Map, {
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl
+} from 'react-map-gl';
+
+import ControlPanel from './control-panel.js';
+import Pin from './pin.js';
+
+import { listLogEntries } from './API.js';
+
+const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const App = () => {
 
-  const [viewPort, setViewPort] = useState({
-    longitude: -95.6,
-    latitude: 37.6,
-    zoom: 4,
-  });
-
+  //Hooks to keep track of component states
+  const [popupInfo, setPopupInfo] = useState(null);
   const [logEntries, setLogEntries] = useState([]);
-
+  
   useEffect(() => {
     (async () => {
       const logEntries = await listLogEntries();
@@ -20,27 +30,68 @@ const App = () => {
     })();
   }, []);
 
+  //Mapping out entries into MapBox markers
+  const pins = useMemo(
+    () =>
+    logEntries.map((entry, index) => (
+        <Marker
+          key={`marker-${index}`}
+          longitude={entry.longitude}
+          latitude={entry.latitude}
+          anchor='bottom'
+          onClick={e => {
+            e.originalEvent.stopPropagation();
+            setPopupInfo(entry);
+          }}
+        >
+          <Pin />
+        </Marker>
+      )),
+    [logEntries]
+  );
 
   return (
+    <>
       <Map
-        {...viewPort}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        initialViewState={{
+          latitude: 40,
+          longitude: -100,
+          zoom: 3.5,
+          bearing: 0,
+          pitch: 0,
+        }}
         mapStyle="mapbox://styles/syphe/cln10u41p066s01p78zrs75ik"
-        onMove={evt => setViewPort(evt.viewPort)}
+        mapboxAccessToken={TOKEN}
         style={{ width: "100vw", height: "100vh"}}
       >
-        {
-          logEntries.map(entry => (
-            <Marker key={entry._id} longitude={entry.longitude} latitude={entry.latitude} anchor="top-left">
-              <svg className='marker' viewBox="0 0 24 24" strokeWidth="1.5" fill="none" strokeLinecap="round" 
-              strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z">
-              </path><circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <p>{entry.title}</p>
-            </Marker>
-          ))
-        }
+        <GeolocateControl position="top-left" />
+        <FullscreenControl position="top-left" />
+        <NavigationControl position="top-left" />
+        <ScaleControl />
+
+        {pins}
+
+        {popupInfo && (
+          <Popup
+            anchor="top"
+            longitude={Number(popupInfo.longitude)}
+            latitude={Number(popupInfo.latitude)}
+            onClose={() => setPopupInfo(null)}
+          >
+            <div>
+              <h3>{popupInfo.title}</h3>
+              <p>{popupInfo.description}</p>
+              <p>Comments: {popupInfo.comments}</p>
+              <p>Rating: {popupInfo.rating}</p>
+              <img width="100%" src={popupInfo.image} alt=""/>
+              <p>Visted on: {new Date (popupInfo.visitDate).toLocaleDateString()}</p>
+            </div>
+          </Popup>
+        )}
       </Map>
+
+      <ControlPanel />
+    </>
   );
 }
 
