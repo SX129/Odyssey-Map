@@ -4,5 +4,5 @@ A full stack application to store and list all of the places I have traveled to.
 
 ### Technologies
 
-* [x] Setup Server
-  [x] Install Dependencies
+* Setup Server
+  Install Dependencies
