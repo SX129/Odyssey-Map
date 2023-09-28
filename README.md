@@ -8,7 +8,7 @@ A full stack application to store and list all of the places I have traveled to.
   * With Mongoose Models
 * Express
 * React.JS
-* Node  <br>
+* Node  <br /> <br />
 
 * Middlewares: 
     * Morgan
