@@ -4,5 +4,11 @@ A full stack application to store and list all of the places I have traveled to.
 
 ### Technologies
 
-* Setup Server
-  Install Dependencies
+* MongoDB
+  * With Mongoose Models
+* Express
+* React.JS
+* Node
+
+* Middlewares: Morgan, Helmet, CORS
+* APIs: MapBox
