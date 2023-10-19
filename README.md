@@ -1,18 +1,29 @@
-# Full Stack Odyssey Map
 
-A full stack application to store and list all of the places I have traveled to. The application renders a map with descriptions and images of my most memorable moments from each destination.
+# Project Title
 
-### Technologies
+A full-stack app to store and visualize all of my travel destinations.
 
-* MongoDB
-  * With Mongoose Models
-* Express
-* React.JS
-* Node  <br /> <br />
 
-* Middlewares: 
-    * Morgan
-    * Helmet
-    * CORS
-* APIs:
-    * MapBox
+## Tech Stack
+
+**Client:** React, MapBox API
+
+**Server:** Node, Express, MongoDB (Mongoose Models)
+
+**Middleware:** Morgan, Helmet, CORS
+
+
+## Features
+
+- Renders a map with a marker for every database entry
+- Expand markers for detailed information about the destination which includes:
+    - images
+    - reviews
+    - description
+- Add new markers within the client by double-clicking on a location
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
