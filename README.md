@@ -1,5 +1,5 @@
 
-# Project Title
+# Odyssey Map
 
 A full-stack app to store and visualize all of my travel destinations.
 
